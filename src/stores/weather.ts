@@ -9,26 +9,23 @@ export const weatherApi = async (place: string): Promise<WeatherData | null> => 
     const response = await axios.get(url)
     const data = response.data
 
-    console.log(response.data)
-
     if (data) {
       const humidity = data.main.humidity
       const press = Math.round(data.main.pressure / 1.333)
 
       console.log('desc: ' + data.weather[0].description)
 
+      const temp = Math.round(data.main.temp - 273.15)
+      const colors = {
+        fill: temp > 25 ? '#FF0000' : temp > 15 ? '#F5A623' : temp < 0 ? '#42AAFF' : '#00AFFF',
+        color: temp > 25 ? '#a23232' : temp > 15 ? '#ED760E' : temp < 0 ? '#003153' : '#0072FF'
+      }
+
       return {
         name: data.name,
-        temp: Math.round(data.main.temp - 273.15),
+        temp,
         clouds: data.clouds.all,
-        description:
-          data.weather[0].description.includes('cloud') && data.clouds.all < 50
-            ? 'Clouds'
-            : data.weather[0].description.includes('cloud') && data.clouds.all > 50
-              ? 'Overcast'
-              : data.weather[0].description.includes('rain')
-                ? 'Rain'
-                : 'Clear',
+        description: data.weather[0].description,
         humidity: {
           present: humidity,
           status: humidity < 40 ? 'Dry' : humidity > 40 && humidity < 60 ? 'Good' : 'Wet'
@@ -37,7 +34,8 @@ export const weatherApi = async (place: string): Promise<WeatherData | null> => 
         pressure: {
           number: press,
           status: press === 760 ? 'Normal' : press > 760 ? 'High' : 'Low'
-        }
+        },
+        colors
       }
     }
 

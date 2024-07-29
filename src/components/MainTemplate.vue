@@ -7,7 +7,9 @@ import {
   ServerCrash,
   ThermometerSnowflake,
   ThermometerSun,
-  Wind
+  Wind,
+  Earth,
+  ChevronsLeft
 } from 'lucide-vue-next'
 import { ref } from 'vue'
 
@@ -62,6 +64,7 @@ const search = async () => {
       showError('Sorry, city not found :(')
     } else {
       weatherData.value = response
+      console.log(response)
     }
   } catch (err) {
     console.error(err)
@@ -91,8 +94,12 @@ const getRainDropStyle = (index: number) => {
 
 <template>
   <main>
+    <div class="rain-container" v-show="weatherData && weatherData.description.includes('rain')">
+      <div class="raindrop" v-for="n in 20" :key="n" :style="getRainDropStyle(n)"></div>
+    </div>
+
     <form class="form" @submit.prevent="search" v-show="!hideForm">
-      <label class="form-label" for="place">Enter city name</label>
+      <label class="form-label" for="place"><Earth /> Enter city name</label>
       <input class="form-input" type="text" v-model="place" placeholder="Moscow" />
 
       <button :class="['form-btn', { 'shake error': shake }]" type="submit">Search</button>
@@ -102,31 +109,26 @@ const getRainDropStyle = (index: number) => {
       <LoaderTemplate v-if="loading" :isLoading="loading" :title="'Searching...'" :size="30" />
     </Transition>
 
-    <div v-if="!loading && weatherData !== null && !error.status" class="weather">
+    <div v-if="!loading && weatherData && !error.status" class="weather" @keydown.esc="clear">
       <div class="weather__container">
-        <div class="weather__temp">
-          <component
-            :is="weatherData.temp > 10 ? ThermometerSun : ThermometerSnowflake"
-            :size="80"
-            :style="{
-              fill: weatherData.temp > 10 ? '#F5A623' : '#42AAFF',
-              color: weatherData.temp > 10 ? 'currentColor' : '#003153'
-            }"
-          />
-          {{ weatherData.temp }}°C
-        </div>
+        <div class="">
+          <div class="weather__temp">
+            <component
+              :is="weatherData.temp > 10 ? ThermometerSun : ThermometerSnowflake"
+              :size="90"
+              :style="weatherData.colors"
+            />
+            {{ weatherData.temp }}°C
+          </div>
 
-        <h1 class="weather__title">{{ weatherData.name }}</h1>
+          <h1 class="weather__title">{{ weatherData.name }}</h1>
+        </div>
       </div>
 
       <div class="weather__container">
-        <div class="rain-container" v-show="weatherData.description === 'Rain'">
-          <div class="raindrop" v-for="n in 20" :key="n" :style="getRainDropStyle(n)"></div>
-        </div>
-
         <div class="weather__container-item">
           <component
-            :is="weatherData.humidity.present > 70 ? CloudRainIcon : Cloudy"
+            :is="weatherData.description.includes('rain') ? CloudRainIcon : Cloudy"
             :size="35"
             color="#42AAFF"
           />
@@ -154,8 +156,9 @@ const getRainDropStyle = (index: number) => {
           {{ weatherData.pressure.status }}
         </div>
       </div>
-
-      <button class="weather__btn" @click="clear">Back</button>
+      <button class="weather__btn" title="Back" @click="clear">
+        <ChevronsLeft :size="25" />
+      </button>
     </div>
 
     <div

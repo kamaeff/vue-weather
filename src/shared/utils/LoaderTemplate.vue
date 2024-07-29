@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Loader } from 'lucide-vue-next'
+import { Loader, Cloud } from 'lucide-vue-next'
 import type { loaderProps } from '../types/types'
 
-// Используем defineProps для определения пропсов
 const props = defineProps<loaderProps>()
 
 const loaderClass = computed(() => (props.isLoading ? 'loader' : ''))
@@ -14,7 +13,7 @@ const loaderClass = computed(() => (props.isLoading ? 'loader' : ''))
     <div class="container" v-if="props.isLoading">
       <Loader :size="props.size" class="item" />
       <div class="text">
-        <p class="title">#Weather App</p>
+        <p class="title"><Cloud :size="30" />{{ props.title }}</p>
         <p v-show="props.needSub" class="sub">Simple and Fast</p>
       </div>
     </div>

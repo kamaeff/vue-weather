@@ -27,4 +27,8 @@ export type WeatherData = {
     number: number
     status: 'Low' | 'Normal' | 'High'
   }
+  colors: {
+    fill: string
+    color: string
+  }
 }
