@@ -20,7 +20,7 @@ onMounted(() => {
       v-if="loader"
       :isLoading="loader"
       :title="'#Weather App'"
-      :needSub="true"
+      :needSub="false"
       :size="30"
     />
   </Transition>

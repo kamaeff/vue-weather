@@ -75,6 +75,7 @@ const search = async () => {
 }
 
 const clear = () => {
+  error.value.status = false
   place.value = ''
   weatherData.value = null
   hideForm.value = false
@@ -94,13 +95,13 @@ const getRainDropStyle = (index: number) => {
 
 <template>
   <main>
-    <div class="rain-container" v-show="weatherData && weatherData.description.includes('rain')">
+    <div class="rain-container" v-show="weatherData?.description?.includes('rain')">
       <div class="raindrop" v-for="n in 20" :key="n" :style="getRainDropStyle(n)"></div>
     </div>
 
     <form class="form" @submit.prevent="search" v-show="!hideForm">
       <label class="form-label" for="place"><Earth /> Enter city name</label>
-      <input class="form-input" type="text" v-model="place" placeholder="Moscow" />
+      <input class="form-input" type="text" v-model="place" :maxlength="20" placeholder="Moscow" />
 
       <button :class="['form-btn', { 'shake error': shake }]" type="submit">Search</button>
     </form>
@@ -128,7 +129,7 @@ const getRainDropStyle = (index: number) => {
       <div class="weather__container">
         <div class="weather__container-item">
           <component
-            :is="weatherData.description.includes('rain') ? CloudRainIcon : Cloudy"
+            :is="weatherData?.description?.includes('rain') ? CloudRainIcon : Cloudy"
             :size="35"
             color="#42AAFF"
           />
@@ -161,11 +162,12 @@ const getRainDropStyle = (index: number) => {
       </button>
     </div>
 
-    <div
-      v-if="error.status && weatherData === null"
-      style="display: flex; align-items: center; gap: 5px"
-    >
+    <div v-if="error.status && weatherData === null" class="flex items-center gap-2">
       <ServerCrash /> {{ error.message }}
+
+      <button class="absolute left-7 top-6" @click="clear">
+        <ChevronsLeft :size="25" />
+      </button>
     </div>
   </main>
 </template>

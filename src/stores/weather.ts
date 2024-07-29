@@ -17,8 +17,15 @@ export const weatherApi = async (place: string): Promise<WeatherData | null> => 
 
       const temp = Math.round(data.main.temp - 273.15)
       const colors = {
-        fill: temp > 25 ? '#FF0000' : temp > 15 ? '#F5A623' : temp < 0 ? '#42AAFF' : '#00AFFF',
-        color: temp > 25 ? '#a23232' : temp > 15 ? '#ED760E' : temp < 0 ? '#003153' : '#0072FF'
+        fill: temp > 25 ? '#FF0000' : temp > 15 ? '#FF7F50' : temp >= 0 ? '#00FF00' : '#42AAFF',
+        color:
+          temp > 25
+            ? '#F5A623'
+            : temp > 15 && temp <= 25
+              ? '#FFB02E'
+              : temp >= 0
+                ? '#007F00'
+                : '#003153'
       }
 
       return {

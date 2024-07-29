@@ -19,7 +19,11 @@ body {
   overflow-y: hidden;
 
   color: var(--color-text);
-  background: var(--color-background);
+  background-image: url(/public/bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  overflow: hidden;
 
   transition:
     color 0.5s,
@@ -88,7 +92,7 @@ footer {
       align-items: center;
 
       gap: 5px;
-      
+
       padding: 0;
       font-size: 24px;
     }
