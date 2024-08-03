@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import {
+  ChevronsLeft,
   CloudRainIcon,
   Cloudy,
   Droplet,
+  Earth,
   Gauge,
   ServerCrash,
   ThermometerSnowflake,
   ThermometerSun,
-  Wind,
-  Earth,
-  ChevronsLeft
+  Wind
 } from 'lucide-vue-next'
 import { ref } from 'vue'
 
@@ -81,7 +81,7 @@ const clear = () => {
   hideForm.value = false
 }
 
-const getRainDropStyle = (index: number) => {
+const getRainDropStyle = () => {
   const randomLeft = Math.random() * 100 + '%'
   const randomDelay = Math.random() * -5 + 's'
   const randomDuration = Math.random() * 1.5 + 1.5 + 's'
@@ -96,11 +96,14 @@ const getRainDropStyle = (index: number) => {
 <template>
   <main>
     <div class="rain-container" v-show="weatherData?.description?.includes('rain')">
-      <div class="raindrop" v-for="n in 20" :key="n" :style="getRainDropStyle(n)"></div>
+      <div class="raindrop" v-for="n in 20" :key="n" :style="getRainDropStyle()"></div>
     </div>
 
     <form class="form" @submit.prevent="search" v-show="!hideForm">
-      <label class="form-label" for="place"><Earth /> Enter city name</label>
+      <label class="form-label" for="place">
+        <Earth />
+        Enter city name</label
+      >
       <input class="form-input" type="text" v-model="place" :maxlength="20" placeholder="Moscow" />
 
       <button :class="['form-btn', { 'shake error': shake }]" type="submit">Search</button>
@@ -144,16 +147,19 @@ const getRainDropStyle = (index: number) => {
         </div>
 
         <div class="weather__container-item">
-          <Droplet :size="35" color="#42AAFF" /> {{ weatherData.humidity.present }}%<br />
+          <Droplet :size="35" color="#42AAFF" />
+          {{ weatherData.humidity.present }}%<br />
           {{ weatherData.humidity.status }}
         </div>
 
         <div class="weather__container-item">
-          <Wind :size="35" color="#c5c5c5" /> {{ weatherData.wind }} m/s
+          <Wind :size="35" color="#c5c5c5" />
+          {{ weatherData.wind }} m/s
         </div>
 
         <div class="weather__container-item">
-          <Gauge :size="35" color="#CEC2A8" /> {{ weatherData.pressure.number }}<br />
+          <Gauge :size="35" color="#CEC2A8" />
+          {{ weatherData.pressure.number }}<br />
           {{ weatherData.pressure.status }}
         </div>
       </div>
@@ -163,7 +169,8 @@ const getRainDropStyle = (index: number) => {
     </div>
 
     <div v-if="error.status && weatherData === null" class="flex items-center gap-2">
-      <ServerCrash /> {{ error.message }}
+      <ServerCrash />
+      {{ error.message }}
 
       <button class="absolute left-7 top-6" @click="clear">
         <ChevronsLeft :size="25" />

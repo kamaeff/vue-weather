@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import MainTemplate from '@/components/MainTemplate.vue'
 import LoaderTemplate from '@/shared/utils/LoaderTemplate.vue'
 

@@ -1,116 +1,111 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"); */
-
 @import './base.css';
 @import './fonts.css';
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
+    box-sizing: border-box;
+    margin: 0;
+    font-weight: normal;
 }
 
 body {
-  min-height: 100vh;
+    min-height: 100vh;
 
-  align-content: center;
+    align-content: center;
 
-  overflow-y: hidden;
+    overflow-y: hidden;
 
-  color: var(--color-text);
-  background-image: url(/public/bg.png);
-  background-repeat: no-repeat;
-  background-size: cover;
+    color: var(--color-text);
+    background-color: var(--color-background);
 
-  overflow: hidden;
+    overflow: hidden;
 
-  transition:
-    color 0.5s,
+    transition: color 0.5s,
     background-color 0.5s;
 
-  font-family: 'Rubik', sans-serif;
+    font-family: 'Rubik', sans-serif;
 
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a,
 button,
 input {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 500;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
 }
 
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 footer {
-  position: absolute;
+    position: absolute;
 
-  bottom: 1%;
-  left: 50%;
+    bottom: 1%;
+    left: 50%;
 
-  transform: translateX(-50%);
+    transform: translateX(-50%);
 
-  a {
-    text-decoration: underline;
-    color: inherit;
+    a {
+        text-decoration: underline;
+        color: inherit;
 
-    transition: 0.1s ease-in-out;
+        transition: 0.1s ease-in-out;
 
-    &:hover {
-      color: var(--color-background-soft);
+        &:hover {
+            color: var(--color-background-soft);
+        }
     }
-  }
 }
 
 .loader {
-  position: absolute;
+    position: absolute;
 
-  top: 50%;
-  left: 50%;
+    top: 50%;
+    left: 50%;
 
-  transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .container {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 
-  .item {
-    animation: rotate 2s linear infinite;
-  }
-
-  .text {
-    .title {
-      display: flex;
-      align-items: center;
-
-      gap: 5px;
-
-      padding: 0;
-      font-size: 24px;
+    .item {
+        animation: rotate 2s linear infinite;
     }
 
-    .sub {
-      display: block;
-      font-size: 14px;
-      font-weight: 300;
+    .text {
+        .title {
+            display: flex;
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 0;
+            font-size: 24px;
+        }
+
+        .sub {
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+        }
     }
-  }
 }
 
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
 
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
